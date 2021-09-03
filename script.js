@@ -1,68 +1,70 @@
 let user = 0;
 let computer = 0;
-let roundWinner = "";
+let tie = 0;
+
 
 function computerPlay() {
-    randomize = Math.floor(Math.random()*3);
+    randomize = Math.floor(Math.random()*3) + 1;
 
-    if (randomize === 0) {
-        return "rock"
-    } else if (randomize === 1) {
-        return "paper"
+    if (randomize === 1) {
+        return "rock";
     } else if (randomize === 2) {
-        return "scissor"
+        return "paper";
+    } else {
+        return "scissor";
     }
 }
 
-let computerSelection = computerPlay();
-
 function playRound(playerSelection, computerSelection) {
 
+    if (playerSelection.toLowerCase() === computerSelection) {
+        tie++
+        return console.log("It's a tie!");
+    }
 
-    if (playerSelection === computerSelection) {
-        roundWinner = "Tie"
-        return console.log("Tie! Nobody wins.")
-    } 
-    
-    if ( 
+    if (
 
         (playerSelection.toLowerCase() === "rock" && computerSelection === "paper") ||
         (playerSelection.toLowerCase() === "paper" && computerSelection === "scissor") ||
         (playerSelection.toLowerCase() === "scissor" && computerSelection === "rock")
 
         ) {
-        computer++
-        roundWinner = "Computer"
-        return console.log("You lose!");
-    } 
+            computer++
+            return console.log("You lose!");
+        }
 
     if (
-
+        
         (playerSelection.toLowerCase() === "rock" && computerSelection === "scissor") ||
         (playerSelection.toLowerCase() === "paper" && computerSelection === "rock") ||
         (playerSelection.toLowerCase() === "scissor" && computerSelection === "paper")
 
-        ) {
-        user++
-        roundWinner = "Player"
-        return console.log("You Win!");
-    } 
+    ) {
+            user++
+            return console.log("You win!");
+    }
 }
 
 function game() {
-let round = 0;
+    for (let round = 0; round < 5; round++) {
+     const computerSelection = computerPlay();
+     let playerSelection = prompt("Choose Your Fighter", "")
 
-    for (round = 1; _round => 5; round++)
-    playRound(playerSelection, computerSelection);
-
-
- 
+     console.log(`Computer plays ${computerSelection}`);
+     playRound(playerSelection, computerSelection);
+    }
 }
 
-
-let playerSelection = prompt("Choose Your Fighter", "")
-console.log(`Computer plays ${computerSelection}`)
-console.log(playRound(playerSelection, computerSelection));
-
-
 game();
+
+function gameWinner() {
+    if ((tie > user) && (tie > computer)) {
+        return console.log("The game calls tie. Nobody wins!");
+    } else if (user > computer) {
+        return console.log("You win the game. Congratulations!");
+    } else if (computer > user) {
+        return console.log("You lose the game. Better luck next time.")
+    }
+}
+
+gameWinner();
